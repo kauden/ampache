@@ -29,6 +29,10 @@ RUN apt-get update && apt-get -y install apache2 \
     libvpx-dev \
     libav-tools
 
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /tmp/*
+
 ADD https://github.com/ampache/ampache/archive/master.tar.gz /opt/master.tar.gz
 
 # extraction / installation
