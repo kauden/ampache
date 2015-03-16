@@ -7,12 +7,17 @@ RUN echo 'deb http://archive.ubuntu.com/ubuntu trusty main multiverse' >> /etc/a
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
-RUN apt-get update && apt-get -y upgrade && apt-get -y install wget \
+RUN apt-get update && \
+    apt-get -y upgrade
+
+RUN apt-get -y install wget \
     supervisor
 
 RUN wget -O - http://download.videolan.org/pub/debian/videolan-apt.asc|sudo apt-key add -
 
-RUN apt-get update && apt-get -y install apache2 \
+RUN apt-get update
+
+RUN apt-get -y install apache2 \
     php5 \
     php5-json \
     php5-curl \
