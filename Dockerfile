@@ -38,11 +38,11 @@ RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/*
 
-ADD https://github.com/ampache/ampache/archive/master.tar.gz /opt/master.tar.gz
+ADD https://github.com/ampache/ampache/archive/develop.tar.gz /opt/ampache.tar.gz
 
 # extraction / installation
 RUN rm -rf /var/www/* && \
-    tar -C /var/www -xf /opt/master.tar.gz ampache-master --strip=1 && \
+    tar -C /var/www -xf /opt/ampache.tar.gz ampache-develop --strip=1 && \
     chown -R www-data /var/www
 
 ADD asset/supervisord.conf /opt/supervisord.conf
