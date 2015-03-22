@@ -8,16 +8,14 @@ RUN echo 'deb http://archive.ubuntu.com/ubuntu trusty main multiverse' >> /etc/a
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
 RUN apt-get update && \
-    apt-get -y upgrade
-
-RUN apt-get -y install wget \
+    apt-get -y upgrade && \
+    apt-get -y install wget \
     supervisor
 
 RUN wget -O - http://download.videolan.org/pub/debian/videolan-apt.asc|sudo apt-key add -
 
-RUN apt-get update
-
-RUN apt-get -y install apache2 \
+RUN apt-get update && \
+    apt-get -y install apache2 \
     php5 \
     php5-json \
     php5-curl \
@@ -38,11 +36,11 @@ RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/*
 
-ADD https://github.com/ampache/ampache/archive/master.tar.gz /opt/master.tar.gz
+ADD https://github.com/ampache/ampache/archive/develop.tar.gz /opt/ampache.tar.gz
 
 # extraction / installation
 RUN rm -rf /var/www/* && \
-    tar -C /var/www -xf /opt/master.tar.gz ampache-master --strip=1 && \
+    tar -C /var/www -xf /opt/ampache.tar.gz ampache-develop --strip=1 && \
     chown -R www-data /var/www
 
 ADD asset/supervisord.conf /opt/supervisord.conf
